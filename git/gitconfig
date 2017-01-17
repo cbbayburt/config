@@ -1,0 +1,22 @@
+[alias]
+        l = log --oneline --decorate --graph -n30
+        s = status
+        d = diff
+        dc = diff --cached
+        dt = difftool
+[difftool]
+        prompt = false
+[core]
+        editor = vim
+[push]
+        default = simple
+[diff]
+        tool = vimdiff
+[merge]
+        tool = vimdiff
+[user]
+        #User data and GPG key here
+[rebase]
+	autoSquash = true
+[commit]
+	gpgsign = true
