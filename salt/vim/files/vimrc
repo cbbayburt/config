@@ -1,0 +1,169 @@
+set nocompatible
+
+" Vundle config
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+" PLUGINS
+    " python
+    Plugin 'tmhedberg/SimpylFold'
+    Plugin 'nvie/vim-flake8'
+    Plugin 'vim-scripts/indentpython.vim'
+
+    " Java
+"    Plugin 'artur-shaik/vim-javacomplete2'
+
+    " Syntax checking
+"    Plugin 'scrooloose/syntastic'
+
+    " filesystem
+"    Plugin 'scrooloose/nerdtree'
+"    Plugin 'jistr/vim-nerdtree-tabs'
+
+    " git
+    Plugin 'tpope/vim-fugitive'
+
+    " themes
+"    Plugin 'altercation/vim-colors-solarized'
+
+    " misc
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+"    Plugin 'jewes/Conque-Shell'
+" END PLUGINS
+
+call vundle#end()
+
+filetype plugin indent on
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+
+set incsearch		" do incremental searching
+set hlsearch
+set ignorecase
+
+set mouse=a
+syntax on
+
+set nowrap
+set whichwrap=b,s,h,l
+set nu
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set autoindent
+
+set wildmenu
+set cursorline
+set laststatus=2
+set showmatch
+
+set ttimeoutlen=100 "prevents Ctrl+O delay
+
+" Encoding
+set enc=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf8,prc
+set guifont=Lucida_Console:h10:cANSI
+set guifontwide=Lucida_Console:h11:b:cANSI
+
+set nobackup
+set noundofile
+set noswapfile
+
+set splitright
+set splitbelow
+
+" Keys
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+map Q gq                " Don't use Ex mode, use Q for formatting
+let mapleader = " "
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <Leader>l zo
+nnoremap <Leader>h zc
+nnoremap <Leader>e :20Lexplore<CR>
+nnoremap <Leader>c "+y
+nnoremap <Leader>v "+p
+
+" Folding
+set foldmethod=syntax
+set foldlevel=99
+
+" Custom filetypes
+au BufRead,BufNewFile *.sls setf yaml
+
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.java match BadWhitespace /\s\+$/
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.java match BadWhitespace /^\t\+/
+
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+endif
+
+let g:netrw_liststyle=3
+
+"colorscheme solarized
+set background=dark
+
+" Languages
+
+" C
+let c_comment_strings=1
+
+" Python
+autocmd FileType python set foldmethod=indent
+let python_highlight_all=1
+syntax on
+
+" Java
+
+" Plugins
+
+" SimpylFold
+let g:SimpylFold_docstring_preview=1
+
+" NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$']
+
+" Syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+
+" Airline
+" let g:airline_powerline_fonts=1
+let g:airline_theme='base16'
+
+" javacomplete2
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+"ConqueTerm
+nnoremap <Leader>t :ConqueTermSplit bash<CR>
+nnoremap <Leader>T :ConqueTermVSplit bash<CR>
+
+"flake8
+let g:flake8_show_in_file=1
+let g:flake8_show_in_gutter=1
+let g:flake8_show_quickfix=0
+autocmd BufWritePost *.py call Flake8()
