@@ -26,10 +26,10 @@ Plugin 'VundleVim/Vundle.vim'
 "    Plugin 'jistr/vim-nerdtree-tabs'
 
     " git
-    Plugin 'tpope/vim-fugitive'
+"    Plugin 'tpope/vim-fugitive'
 
     " autocomplete
-    Plugin 'Valloric/YouCompleteMe'
+"    Plugin 'Valloric/YouCompleteMe'
 
     " themes
     Plugin 'altercation/vim-colors-solarized'
@@ -181,5 +181,5 @@ nnoremap <Leader>T :ConqueTermVSplit bash<CR>
 "flake8
 let g:flake8_show_in_file=1
 let g:flake8_show_in_gutter=1
-let g:flake8_show_quickfix=0
-autocmd BufWritePost *.py call Flake8()
+let g:flake8_show_quickfix=1
+autocmd BufRead,BufWritePost *.py call Flake8()
