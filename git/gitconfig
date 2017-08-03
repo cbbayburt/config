@@ -4,6 +4,8 @@
         d = diff
         dc = diff --cached
         dt = difftool
+	f = fetch
+	fp = fetch --prune
 [difftool]
         prompt = false
 [core]
