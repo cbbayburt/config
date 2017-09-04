@@ -1,9 +1,12 @@
 [alias]
-        l = log --oneline --decorate --graph -n30
+        l = log --oneline --decorate --graph -n40
         s = status
         d = diff
         dc = diff --cached
         dt = difftool
+	f = fetch
+	fp = fetch --prune
+	cp = cherry-pick
 [difftool]
         prompt = false
 [core]
@@ -15,7 +18,10 @@
 [merge]
         tool = vimdiff
 [user]
-        name = Can Bulut Bayburt
-        email = canbulutb@yahoo.com
+        name = name_here
+        email = email_here
+	signingkey = gpg_key_id_here
 [rebase]
 	autoSquash = true
+[commit]
+	gpgsign = true

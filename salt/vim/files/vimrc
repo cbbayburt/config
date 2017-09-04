@@ -10,31 +10,34 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " PLUGINS
-    " python
+    " Python
     Plugin 'tmhedberg/SimpylFold'
     Plugin 'nvie/vim-flake8'
     Plugin 'vim-scripts/indentpython.vim'
 
-    " Java
-"    Plugin 'artur-shaik/vim-javacomplete2'
+    " JavaScript
+    Plugin 'pangloss/vim-javascript'
+    Plugin 'mxw/vim-jsx'
+    Plugin 'leshill/vim-json'
 
     " Syntax checking
-"    Plugin 'scrooloose/syntastic'
+    Plugin 'vim-syntastic/syntastic'
+    Plugin 'bronson/vim-trailing-whitespace'
 
-    " filesystem
+    " Filesystem
 "    Plugin 'scrooloose/nerdtree'
 "    Plugin 'jistr/vim-nerdtree-tabs'
+    Plugin 'junegunn/fzf'
 
     " git
-    Plugin 'tpope/vim-fugitive'
+"    Plugin 'tpope/vim-fugitive'
 
-    " themes
-"    Plugin 'altercation/vim-colors-solarized'
+    " Themes
+    Plugin 'altercation/vim-colors-solarized'
 
-    " misc
+    " Misc
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
-"    Plugin 'jewes/Conque-Shell'
 " END PLUGINS
 
 call vundle#end()
@@ -93,6 +96,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <Leader>l zo
 nnoremap <Leader>h zc
+nnoremap <Leader>t :FZF<CR>
 nnoremap <Leader>e :20Lexplore<CR>
 nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
@@ -133,7 +137,8 @@ autocmd FileType python set foldmethod=indent
 let python_highlight_all=1
 syntax on
 
-" Java
+" JavaScript
+autocmd FileType javascript.jsx setl shiftwidth=2
 
 " Plugins
 
@@ -144,26 +149,31 @@ let g:SimpylFold_docstring_preview=1
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
 " Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
+let g:syntastic_javascript_checkers = ["eslint"]
+
+function! FindConfig(prefix, what, where)
+    let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+    return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+endfunction
+
+autocmd FileType javascript.jsx let b:syntastic_javascript_eslint_args =
+    \ get(g:, 'syntastic_javascript_eslint_args', '') .
+    \ FindConfig('-c', '.eslintrc', expand('<afile>:p:h', 1))
 
 " Airline
 " let g:airline_powerline_fonts=1
 let g:airline_theme='base16'
 
-" javacomplete2
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-"ConqueTerm
-nnoremap <Leader>t :ConqueTermSplit bash<CR>
-nnoremap <Leader>T :ConqueTermVSplit bash<CR>
-
-"flake8
+" flake8
 let g:flake8_show_in_file=1
 let g:flake8_show_in_gutter=1
-let g:flake8_show_quickfix=0
-autocmd BufWritePost *.py call Flake8()
+let g:flake8_show_quickfix=1
+
+" vim-javascript
+let g:jsx_ext_required = 0
