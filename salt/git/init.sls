@@ -1,4 +1,4 @@
-git:
+git-core:
     pkg.installed
 
 git_config:
@@ -9,5 +9,5 @@ git_config:
         - group: root
         - mode: 644
         - require:
-            - pkg: git
+            - pkg: git-core
 

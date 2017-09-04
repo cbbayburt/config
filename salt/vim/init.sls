@@ -1,7 +1,7 @@
 python-pip:
     pkg.installed
 
-git:
+git-core:
     pkg.installed
 
 vim:
@@ -12,7 +12,7 @@ vundle:
         - name: https://github.com/VundleVim/Vundle.vim.git
         - target: /root/.vim/bundle/Vundle.vim
         - require:
-            - pkg: git
+            - pkg: git-core
 
 vimrc:
     file.managed:
