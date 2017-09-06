@@ -1,5 +1,5 @@
-python-pip:
-    pkg.installed
+# python-pip:
+#     pkg.installed
 
 git-core:
     pkg.installed
@@ -25,10 +25,10 @@ vimrc:
         - require:
             - pkg: vim
 
-flake8:
-    pip.installed:
-        - require:
-            - pkg: python-pip
+# flake8:
+#     pip.installed:
+#         - require:
+#             - pkg: python-pip
 
 install_plugins:
     cmd.run:

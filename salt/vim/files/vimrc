@@ -12,7 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 " PLUGINS
     " Python
     Plugin 'tmhedberg/SimpylFold'
-    Plugin 'nvie/vim-flake8'
+    "Plugin 'nvie/vim-flake8'
     Plugin 'vim-scripts/indentpython.vim'
 
     " JavaScript
@@ -171,9 +171,9 @@ autocmd FileType javascript.jsx let b:syntastic_javascript_eslint_args =
 let g:airline_theme='base16'
 
 " flake8
-let g:flake8_show_in_file=1
-let g:flake8_show_in_gutter=1
-let g:flake8_show_quickfix=1
+"let g:flake8_show_in_file=1
+"let g:flake8_show_in_gutter=1
+"let g:flake8_show_quickfix=1
 
 " vim-javascript
 let g:jsx_ext_required = 0
