@@ -1,8 +1,9 @@
 # python-pip:
 #     pkg.installed
 
-git-core:
-    pkg.installed
+git-for-vim:
+    pkg.installed:
+      - name: git-core
 
 vim:
     pkg.installed
@@ -12,7 +13,7 @@ vundle:
         - name: https://github.com/VundleVim/Vundle.vim.git
         - target: /root/.vim/bundle/Vundle.vim
         - require:
-            - pkg: git-core
+            - pkg: git-for-vim
 
 vimrc:
     file.managed:
