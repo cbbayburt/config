@@ -8,6 +8,7 @@ git_config:
         - user: root
         - group: root
         - mode: 644
+        - template: jinja
         - require:
             - pkg: git-core
 

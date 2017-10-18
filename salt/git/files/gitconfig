@@ -4,9 +4,9 @@
         d = diff
         dc = diff --cached
         dt = difftool
-	f = fetch
-	fp = fetch --prune
-	cp = cherry-pick
+        f = fetch
+        fp = fetch --prune
+        cp = cherry-pick
 [difftool]
         prompt = false
 [core]
@@ -18,10 +18,14 @@
 [merge]
         tool = vimdiff
 [user]
-        name = name_here
-        email = email_here
-	signingkey = gpg_key_id_here
+        name = {{ pillar['git']['name'] }}
+        email = {{ pillar['git']['email'] }}
+{% if pillar['git']['gpg_keyid'] is defined %}
+        signingkey = {{ pillar['git']['gpg_keyid'] }}
+{% endif %}
 [rebase]
-	autoSquash = true
+        autoSquash = true
+{% if pillar['git']['gpg_keyid'] is defined %}
 [commit]
-	gpgsign = true
+        gpgsign = true
+{% endif %}
