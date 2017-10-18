@@ -37,3 +37,6 @@ install_plugins:
         - require:
             - git: vundle
             - file: vimrc
+
+vim-data:
+    pkg.installed
