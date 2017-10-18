@@ -12,32 +12,25 @@ Plugin 'VundleVim/Vundle.vim'
 " PLUGINS
     " Python
     Plugin 'tmhedberg/SimpylFold'
-    "Plugin 'nvie/vim-flake8'
     Plugin 'vim-scripts/indentpython.vim'
+    Plugin 'davidhalter/jedi-vim'
 
     " JavaScript
     Plugin 'pangloss/vim-javascript'
     Plugin 'mxw/vim-jsx'
     Plugin 'leshill/vim-json'
+    Plugin 'posva/vim-vue'
+
+    " Go
+    Plugin 'fatih/vim-go', {'pinned': 1}
 
     " Syntax checking
     Plugin 'vim-syntastic/syntastic'
     Plugin 'bronson/vim-trailing-whitespace'
 
-    " Filesystem
-"    Plugin 'scrooloose/nerdtree'
-"    Plugin 'jistr/vim-nerdtree-tabs'
-    Plugin 'junegunn/fzf'
-
-    " git
-"    Plugin 'tpope/vim-fugitive'
-
-    " Themes
-    Plugin 'altercation/vim-colors-solarized'
-
     " Misc
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'jiangmiao/auto-pairs'
+    Plugin 'alvan/vim-closetag'
 " END PLUGINS
 
 call vundle#end()
@@ -96,7 +89,6 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <Leader>l zo
 nnoremap <Leader>h zc
-nnoremap <Leader>t :FZF<CR>
 nnoremap <Leader>e :20Lexplore<CR>
 nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
@@ -124,7 +116,6 @@ endif
 
 let g:netrw_liststyle=3
 
-"colorscheme solarized
 set background=dark
 
 " Languages
@@ -145,13 +136,7 @@ autocmd FileType javascript.jsx setl shiftwidth=2
 " SimpylFold
 let g:SimpylFold_docstring_preview=1
 
-" NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$']
-
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
@@ -166,14 +151,12 @@ autocmd FileType javascript.jsx let b:syntastic_javascript_eslint_args =
     \ get(g:, 'syntastic_javascript_eslint_args', '') .
     \ FindConfig('-c', '.eslintrc', expand('<afile>:p:h', 1))
 
-" Airline
-" let g:airline_powerline_fonts=1
-let g:airline_theme='base16'
-
-" flake8
-"let g:flake8_show_in_file=1
-"let g:flake8_show_in_gutter=1
-"let g:flake8_show_quickfix=1
-
 " vim-javascript
 let g:jsx_ext_required = 0
+
+" vim-closetag
+let g:closetag_filenames = '*.html,*.xhtml,*.htm,*.xml,*.vue,*.jsp,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" jedi-vim
+let g:jedi#popup_on_dot = 0

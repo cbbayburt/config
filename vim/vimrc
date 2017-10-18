@@ -10,34 +10,27 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " PLUGINS
-    " python
+    " Python
     Plugin 'tmhedberg/SimpylFold'
-    Plugin 'nvie/vim-flake8'
     Plugin 'vim-scripts/indentpython.vim'
+    Plugin 'davidhalter/jedi-vim'
 
-    " Java
-"    Plugin 'artur-shaik/vim-javacomplete2'
+    " JavaScript
+    Plugin 'pangloss/vim-javascript'
+    Plugin 'mxw/vim-jsx'
+    Plugin 'leshill/vim-json'
+    Plugin 'posva/vim-vue'
+
+    " Go
+    Plugin 'fatih/vim-go', {'pinned': 1}
 
     " Syntax checking
-"    Plugin 'scrooloose/syntastic'
+    Plugin 'vim-syntastic/syntastic'
+    Plugin 'bronson/vim-trailing-whitespace'
 
-    " filesystem
-"    Plugin 'scrooloose/nerdtree'
-"    Plugin 'jistr/vim-nerdtree-tabs'
-
-    " git
-"    Plugin 'tpope/vim-fugitive'
-
-    " autocomplete
-"    Plugin 'Valloric/YouCompleteMe'
-
-    " themes
-    Plugin 'altercation/vim-colors-solarized'
-
-    " misc
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
-"    Plugin 'jewes/Conque-Shell'
+    " Misc
+    Plugin 'jiangmiao/auto-pairs'
+    Plugin 'alvan/vim-closetag'
 " END PLUGINS
 
 call vundle#end()
@@ -123,7 +116,6 @@ endif
 
 let g:netrw_liststyle=3
 
-colorscheme solarized
 set background=dark
 
 " Languages
@@ -136,50 +128,35 @@ autocmd FileType python set foldmethod=indent
 let python_highlight_all=1
 syntax on
 
-" Java
+" JavaScript
+autocmd FileType javascript.jsx setl shiftwidth=2
 
 " Plugins
-
-" YCM
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"python with virtualenv support
-py << EOF
-import os
-import sys
-
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 " SimpylFold
 let g:SimpylFold_docstring_preview=1
 
-" NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$']
-
 " Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
+let g:syntastic_javascript_checkers = ["eslint"]
 
-" Airline
-let g:airline_powerline_fonts=1
+function! FindConfig(prefix, what, where)
+    let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+    return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+endfunction
 
-" javacomplete2
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType javascript.jsx let b:syntastic_javascript_eslint_args =
+    \ get(g:, 'syntastic_javascript_eslint_args', '') .
+    \ FindConfig('-c', '.eslintrc', expand('<afile>:p:h', 1))
 
-"ConqueTerm
-nnoremap <Leader>t :ConqueTermSplit bash<CR>
-nnoremap <Leader>T :ConqueTermVSplit bash<CR>
+" vim-javascript
+let g:jsx_ext_required = 0
 
-"flake8
-let g:flake8_show_in_file=1
-let g:flake8_show_in_gutter=1
-let g:flake8_show_quickfix=1
-autocmd BufRead,BufWritePost *.py call Flake8()
+" vim-closetag
+let g:closetag_filenames = '*.html,*.xhtml,*.htm,*.xml,*.vue,*.jsp,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" jedi-vim
+let g:jedi#popup_on_dot = 0
